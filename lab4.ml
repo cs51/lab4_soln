@@ -32,7 +32,7 @@ element in an empty list. This is an ideal application for option
 types.
 
 ........................................................................
-Exercise 5: 
+Exercise 1: 
 
 Reimplement `max_list`, but this time, it should return an `int option`
 instead of an `int`. Call it `max_list_opt`. The `None` return value
@@ -52,7 +52,7 @@ let rec max_list_opt (lst : int list) : int option =
      | Some max_tail -> Some (max head max_tail) ;;
 
 (*......................................................................
-Exercise 6: Alternatively, we could have `max_list` raise an exception
+Exercise 2: Alternatively, we could have `max_list` raise an exception
 upon discovering the error condition. Reimplement `max_list` so that it
 does so. What exception should it raise? (See Section 10.3 in the
 textbook for some advice.)
@@ -65,7 +65,7 @@ let rec max_list (lst : int list) : int =
   | head :: tail -> max head (max_list tail) ;;
      
 (*......................................................................
-Exercise 7: Write a function `min_option` to return the smaller of its
+Exercise 3: Write a function `min_option` to return the smaller of its
 two `int option` arguments, or `None` if both are `None`. If exactly one
 argument is `None`, return the other. The built-in function `min` from
 the Stdlib module may be useful. You'll want to make sure that all
@@ -80,7 +80,7 @@ let min_option (x : int option) (y : int option) : int option =
   | Some  left, Some  right -> Some (min left right) ;;
      
 (*......................................................................
-Exercise 8: Write a function `plus_option` to return the sum of its two
+Exercise 4: Write a function `plus_option` to return the sum of its two
 `int option` arguments, or `None` if both are `None`. If exactly one
 argument is `None`, return the other.
 ......................................................................*)
@@ -96,7 +96,7 @@ let plus_option (x : int option) (y : int option) : int option =
 Part 2: Polymorphism practice
 
 ........................................................................
-Exercise 9: Do you see a pattern in your implementations of
+Exercise 5: Do you see a pattern in your implementations of
 `min_option` and `plus_option`? How can we factor out similar code?
 
 Write a polymorphic higher-order function `lift_option` to "lift"
@@ -138,7 +138,7 @@ let lift_option (f : 'a -> 'a -> 'a) (x : 'a option) (y : 'a option)
   | Some  left, Some right  -> Some (f left right) ;;
      
 (*......................................................................
-Exercise 10: Now rewrite `min_option` and `plus_option` using the
+Exercise 6: Now rewrite `min_option` and `plus_option` using the
 higher-order function `lift_option`. Call them `min_option_2` and
 `plus_option_2`.
 ......................................................................*)
@@ -199,7 +199,7 @@ let plus_option_2 : int option -> int option -> int option =
   lift_option (+) ;;
 
 (*......................................................................
-Exercise 11: Now that we have `lift_option`, we can use it in other
+Exercise 7: Now that we have `lift_option`, we can use it in other
 ways. Because `lift_option` is polymorphic, it can work on things other
 than `int option`s. Define a function `and_option` to return the boolean
 AND of two `bool option`s, or `None` if both are `None`. If exactly one
@@ -210,7 +210,7 @@ let and_option : bool option -> bool option -> bool option =
   lift_option (&&) ;;
   
 (*......................................................................
-Exercise 12: In Lab 3, you implemented a polymorphic function `zip` that
+Exercise 8: In Lab 3, you implemented a polymorphic function `zip` that
 takes two lists and "zips" them together into a list of pairs. Here's
 a possible implementation of `zip`:
 
@@ -256,7 +256,7 @@ an option type:
       | None -> None
       | Some pairs -> Some (sum (prods pairs)) ;;
 
-It uses `zip_opt` from Exercise 12, `prods` from Lab 3, and a function
+It uses `zip_opt` from Exercise 8, `prods` from Lab 3, and a function
 `sum` to sum up all the integers in a list. The `sum` function is
 simply *)
    
@@ -276,7 +276,7 @@ branch. This is something we're likely to be doing a lot of. Let's
 factor that out to simplify the implementation.
 
 ........................................................................
-Exercise 13: Define a function called `maybe` that takes a function of
+Exercise 9: Define a function called `maybe` that takes a function of
 type `'a -> 'b` and an argument of type `'a option`, and "maybe"
 (depending on whether its argument is a `None` or a `Some`) applies the
 function to the argument. The `maybe` function either passes on the
@@ -295,7 +295,7 @@ let maybe (f : 'a -> 'b) (x : 'a option) : 'b option =
   | Some v -> Some (f v) ;;
 
 (*......................................................................
-Exercise 14: Now reimplement `dotprod_opt` to use the `maybe`
+Exercise 10: Now reimplement `dotprod_opt` to use the `maybe`
 function. (The previous implementation makes use of functions `sum`
 and `prods`, which we've provided for you above.)  Your new solution
 for `dotprod` should be much simpler than the version we provided
@@ -307,7 +307,7 @@ let dotprod_opt (a : int list) (b : int list) : int option =
         (zip_opt a b) ;;
 
 (*......................................................................
-Exercise 15: Reimplement `zip_opt` using the `maybe` function, as
+Exercise 11: Reimplement `zip_opt` using the `maybe` function, as
 `zip_opt_2` below.
 ......................................................................*)
 
@@ -322,7 +322,7 @@ let rec zip_opt_2 (x : 'a list) (y : 'b list) : (('a * 'b) list) option =
   | _, _ -> None ;;
 
 (*......................................................................
-Exercise 16: [Optional] For the energetic, reimplement `max_list_opt`
+Exercise 12: [Optional] For the energetic, reimplement `max_list_opt`
 as `max_list_opt_2` along the same lines. There's likely to be a
 subtle issue here, since the `maybe` function always passes along the
 `None`.
